@@ -22,25 +22,11 @@ docker run --rm -p 8080:80 site-emmanuelbernard   # http://localhost:8080
 
 ## La publication
 
-Le site se publie par une poussée sur `main` : GitHub le construit, puis le
-serveur d'AVQNOS reprend l'image. `.github/workflows/publier.yml`, à chaque
-poussée :
-
-1. construit l'image avec `GIT_SHA` au commit et la pousse sur
-   `ghcr.io/ind-os/site-emmanuelbernard`, étiquetée `main` et par le commit ;
-2. demande au serveur d'AVQNOS de reprendre l'image `main`, puis attend que
-   `<SITE_ADRESSE>/healthz.json` rende ce commit ; rouge après dix minutes.
-   Sans les secrets du serveur, le résumé du workflow dit que rien n'est publié,
-   et le workflow finit vert.
-
-Ce que le dépôt reçoit du serveur, posé par le kit d'Indos quand il installe le
-site :
-
-| Nom | Sorte | Contenu |
-| --- | --- | --- |
-| `REDEPLOIEMENT_ADRESSE` | secret | l'adresse qui fait reprendre l'image `main` au serveur |
-| `REDEPLOIEMENT_JETON` | secret | le jeton de cette adresse |
-| `SITE_ADRESSE` | variable | l'adresse du site en ligne |
+Le site se publie par une poussée sur `main` : `.github/workflows/publier.yml`
+construit l'image avec `GIT_SHA` au commit et la pousse sur
+`ghcr.io/a-v-q-n/site-emmanuelbernard`, étiquetée `main` et par le commit. Le serveur
+d'AVQNOS tire l'étiquette `main` toutes les cinq minutes et sert la nouvelle
+image dès qu'elle change : `<adresse du site>/healthz.json` dit le commit servi.
 
 Le serveur tire l'image sans identifiant, le paquet GHCR étant public.
 
