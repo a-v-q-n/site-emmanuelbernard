@@ -87,11 +87,8 @@ Seulement quand la personne le demande (« publie »), après avoir vu la modifi
 
        gh run watch <numéro> --exit-status
 
-7. Vert : le site en ligne montre la modification. Son adresse : `gh variable get SITE_ADRESSE`. Donne-la à la personne.
-8. Si le journal dit « Rien n'est publié », le site n'est pas encore installé sur son serveur : dis-le à la personne. Rien n'est cassé.
-9. Rouge : lis ce qui a échoué, `gh run view <numéro> --log-failed`, et explique-le simplement.
-   - Si la construction du site a échoué, la cause est la modification : corrige-la, vérifie-la en local, puis publie de nouveau.
-   - Si l'attente du site en ligne a échoué, le site en ligne n'a pas repris la modification. Dis à la personne de prévenir la personne qui s'occupe de son serveur.
+7. Vert : l'image du site est prête. Le site en ligne la montre à la prochaine mise à jour de l'OS d'AVQN, qui le sert : dis-le à la personne, et dis-lui de prévenir la personne qui s'occupe de son serveur. L'adresse du site : `gh variable get SITE_ADRESSE`.
+8. Rouge : lis ce qui a échoué, `gh run view <numéro> --log-failed`, et explique-le simplement. La cause est la modification : corrige-la, vérifie-la en local, puis publie de nouveau.
 
 Ne publie qu'une chose à la fois : attends la fin d'une publication avant la suivante.
 
