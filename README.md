@@ -22,13 +22,16 @@ docker run --rm -p 8080:80 site-emmanuelbernard   # http://localhost:8080
 
 ## La publication
 
-Le site se publie par une poussée sur `main` : `.github/workflows/publier.yml`
-construit l'image avec `GIT_SHA` au commit et la pousse sur
-`ghcr.io/a-v-q-n/site-emmanuelbernard`, étiquetée `main` et par le commit. Le serveur
-d'AVQNOS tire l'étiquette `main` toutes les cinq minutes et sert la nouvelle
-image dès qu'elle change : `<adresse du site>/healthz.json` dit le commit servi.
+Le site se publie en deux temps.
 
-Le serveur tire l'image sans identifiant, le paquet GHCR étant public.
+1. Une poussée sur `main` : `.github/workflows/publier.yml` construit l'image avec
+   `GIT_SHA` au commit et la pousse sur `ghcr.io/a-v-q-n/site-emmanuelbernard`,
+   étiquetée `main` et par le commit.
+2. L'OS d'AVQN la met en ligne : une demande de fusion d'`ind-os/os-avqn` porte
+   l'empreinte de la nouvelle image dans `apps/site-emmanuelbernard/Dockerfile`, puis
+   `kit poser` la sert. `<adresse du site>/healthz.json` dit le commit servi.
+
+Le paquet GHCR est public : la CI de l'OS le tire sans identifiant.
 
 ## Travailler dessus
 
